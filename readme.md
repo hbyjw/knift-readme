@@ -98,7 +98,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 
 # mediapie 运行环境搭建
-1. 本文以 docker  ubuntu 22.04为例搭建
+1. 本文以 docker  ubuntu 20.04为例搭建
 1. 确保服务器中安装了git，建立 mediapipe目录，这里以/home/knift为例:` mkdir /home/knift`
 1. 请确保安装了 `python 3.7` 并设置 3.7为默认的`python`
 1. 由于docker 中没有 sudo 所以先安装 sudo `apt install sudo  `
