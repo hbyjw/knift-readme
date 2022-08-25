@@ -98,7 +98,7 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 
 # mediapie 运行环境搭建
-1. 本文以 docker  ubuntu 22.04为例搭建
+1. 本文以 docker  ubuntu 20.04为例搭建
 1. 确保服务器中安装了git，建立 mediapipe目录，这里以/home/knift为例:` mkdir /home/knift`
 1. 请确保安装了 `python 3.7` 并设置 3.7为默认的`python`
 1. 由于docker 中没有 sudo 所以先安装 sudo `apt install sudo  `
@@ -234,7 +234,7 @@ file '@bazel_tools//tools/cpp:toolchain_utils.bzl' does not contain symbol 'use_
 1. ` cd /home/knift/server ` 
 1. ` npm i ` 安装node_modules
 1. ` npm start  ` 启动服务
-1. 在浏览器中录入服务端运行的地址，本演示文档使用的是: ` http://0.0.0.0:3002 ` ,登陆界面的账号密码已写入界面，无需修改直接登入
+1. 在浏览器中录入服务端运行的地址，本演示文档使用的是: ` http://172.22.57.214:3002 ` ,登陆界面的账号密码已写入界面，无需修改直接登入
 1. 登入后点击建立model ,检查运行环境是否配置正常
 1. 建立model时如果提示权限问题，进入到 服务端的` shell `目录,执行 ` chmod +x knift_index.sh  && chmod +x knift_labelmap.sh   ` 再次运行建立model
 1. 当出现 ` xxx.sh not found` 时 找到服务端的文件 ` /home/knift/server/routes/buildmodel.js ` 将
@@ -264,7 +264,7 @@ file '@bazel_tools//tools/cpp:toolchain_utils.bzl' does not contain symbol 'use_
 ```js
 export class GVService {
 
-  mediapipeAPIRUL = "http://0.0.0.0:3002" 
+  mediapipeAPIRUL = "http://172.22.57.214:3002" 
   tfliteURL = this.mediapipeAPIRUL + "/download/tfliteversion"  //tflite文件下载地址 ，初始化调用一次
   updateModelURL = this.mediapipeAPIRUL + "/download/pb"  //更新本机的训练模型数据，用户每次点击识别按钮时要执行
   buildmodelULR = this.mediapipeAPIRUL + "/buildmodel" //训练的模型一般不会调用，此API在测试时用过
