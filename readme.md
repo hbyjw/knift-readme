@@ -1,5 +1,46 @@
-#  开发环境搭建
+# Windows 运行环境搭建
 1. 下载jdk 8u202版本:`https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html `
+1. 下载android studio  ` https://developer.android.google.cn/studio/ `
+1. 下载nodejs ` https://nodejs.org/dist/v16.17.0/node-v16.17.0-x64.msi  `  官网:`https://nodejs.org/zh-cn/`
+1. 安装jdk
+    1. 使用默认设置，一直点击下一步直到安装完成
+    1. 在弹出的界面中直接点击下一步，如果修改了安装路径，请记住路径
+        ![avatar](./images/jdk1.png)
+    1. 安装结束时，直接点击关闭按钮，不用去点击后续步骤按钮
+         ![avatar](./images/jdk2.png)
+    1. 开启一个` cmd `窗口，在命令行中输入 ` java -version ` 检查输出的版本信息是否为 ` java version "1.8.0_202 `
+        ![avatar](./images/jdk3.png)
+    1. jdk安装完成
+1. 安装 Android Studio
+    1. 打开安装程序后的第一个界面，按需求选择是否安装 ` Android virtual Device ` ，本文取消了虚拟设备安装。
+        ![avatar](./images/as1.png)
+    1. 安装路径安自己的需求选择，不影响后续
+        ![avatar](./images/as2.png)
+    1. 后续界面直接选择 ` install `按钮 等待安装结束时，勾选 ` Start Android Studio ` 然后 ` Finish `
+        ![avatar](./images/as3.png)
+    1. 如果以前安装过，请选择` Do not import settings `
+        ![avatar](./images/as4.png)
+        ![avatar](./images/as5.png)
+    1. 安装必须的sdk文件
+        ![avatar](./images/as6.png)
+        ![avatar](./images/as7.png)
+    1. 选择 Next 后 在 `License` 中选择 `Accept` 然后 `Finish`  等待安装完成
+        ![avatar](./images/as8.png)
+    1. 安装完成后关闭，即可。后续会用到.
+1. 安装nodejs 
+    1. 使用默认值一路 Next 即可
+1. 安装ionic、angular、cordova，打开 命令提示符(cmd.exe)
+    1. ` npm install -g @ionic/cli ` 安装 ionic 
+    1. ` npm install -g @angular/cli ` 安装 angular 
+    1. ` npm install -g cordova ` 安装 cordova 
+  
+
+
+    
+
+
+#  mac 开发环境搭建
+1. 下载jdk 8u202版本:`https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html ` 
 
 1. 下载android studio: ` https://developer.android.google.cn/studio/ `
 
@@ -28,14 +69,41 @@ export PATH=$JAVA_HOME/bin:$PATH
 
 1.  全局安装ionic: `  npm install -g @ionic/cli `   
 
+# 创建ionic 项目:
+1.  ` ionic start ionic_demo  `  ionic_demo=项目文件夹名称 
+1.   当出现`? Use the app creation wizard? (Y/n)  ` 时选择 `n`
+1.  `Framework` 本文档选择 ` Angular `
+1.  输入项目名称
+1.  选择template
+1.  进入到ionic项目的目录:` cd  ionic_demo`，
+1.  关闭capacitor : ` ionic integrations disable  capacitor `
+1.  添加Android 平台:` ionic cordova platform add android ` ,出现` ? Are you sure you want to continue? (Y/n)  ` 选择` Y `
+1.  打开`ionic_demo`目录下的 ` config.xml ` 修改 ` <widget id="com.hld.ionicdemo" version="0.0.1" ...> `中的id的值为:` com.hld.ionicdemo `类似的格式， 此值为Android 的包名，请尽量保证 id 的值全球唯一 ,widget中的version为Android app的版本号，如果版本升级，请增加该版本号的值
+1.  继续修改` config.xml ` `<name>MyApp</name>` 中的MyApp的值，此为App在手机上显示的名称
+1.  按需求修改`description` 和 ` author `节点的内容
+1.  然后运行 ` ionic cordova platform rm android  `删除一次` platforms/android`文件，
+1.  然后再运行 ` ionic cordova platform  add android   ` 删除后再运行，是为了使 config.xml 的修改生效，只有修改了id之后需要 rm 然后 add 
+1.  尝试编译一次android项目 ` ionic cordova build android `,如果是发布prod版本 那么命令为 ` ionic cordova build android --prod `
+1.  如果出现 ` Error: Unknown argument: platform `  请执行命令 `ng add @ionic/cordova-builders `
+
+
+1.  如果出现类似`  No installed build tools found. Please install the Android build tools version 30.0.3. `错误 打开Android Studio 然后打开当前项目:` ionic_demo/platforms/android ` 
+![avatar](./images/android1.png)
+
+1.  在android studio中安装 build tools ` Android Studio -> tools -> SDK manager -> SDK Tools -> Show packages details and select needed versions ` 。 见图片标注
+![avatar](./images/android2.png)
+ 
+1.  然后再次在` ionic_demo `的终端目录中运行` ionic cordova build android  `
+
+
 
 # mediapie 运行环境搭建
-1. 本文以 ubuntu 22.04为例搭建
+1. 本文以 docker  ubuntu 22.04为例搭建
 1. 确保服务器中安装了git，建立 mediapipe目录，这里以/home/knift为例:` mkdir /home/knift`
 1. 请确保安装了 `python 3.7` 并设置 3.7为默认的`python`
 1. 由于docker 中没有 sudo 所以先安装 sudo `apt install sudo  `
 1. 安装其他必须的软件 
-```
+```shell
 
 apt install unzip -y 
 
@@ -48,9 +116,6 @@ apt install vim -y
 ```
 ```shell
 #本次运行环境使用的是ubuntu 20.04的 以下命令以root用户运行
-
-
-
 apt update
 
 apt install software-properties-common -y
@@ -70,7 +135,7 @@ ln -s /usr/bin/python3.7 /usr/bin/python
 python --version
 
 ``` 
-1. `  apt install python3-pip -y ` 安装pip
+1. ` apt install python3-pip -y ` 安装pip
 1. ` pip3 install --user six ` 安装 six 
 1. ` pip3 install numpy ` 安装 numpy
 1. ` cd /home/knift `进入目录
@@ -90,21 +155,11 @@ python --version
 ```
 1. ` npm install -g @bazel/bazelisk ` 安装 Bazelisk 
 
-1. 安装opencv 
-
-```  sudo apt-get install -y \
-    libopencv-core-dev \
-    libopencv-highgui-dev \
-    libopencv-calib3d-dev \
-    libopencv-features2d-dev \
-    libopencv-imgproc-dev \
-    libopencv-video-dev 
-``` 
 1. ` apt install curl -y ` 安装 curl 如果已经安装请忽略
 1. ` apt install unzip ` 安装 unzip 如果已经安装请忽略
 1.   安装 jdk  
-  1. 下载 linux jdk8u202 的文件 ` wget https://download.oracle.com/otn/java/jdk/8u202-b08/1961070e4c9b4e26a04e7f5a083f551e/jdk-8u202-linux-x64.tar.gz?AuthParam=1661227741_d1d11510ae1be939bdb5abfd3b58281c ` 注意这个地址可能会失效，请自己去官网下载，文档之前有提到过下载地址
-  1. ` mv 'jdk-8u202-linux-x64.tar.gz?AuthParam=1661227741_d1d11510ae1be939bdb5abfd3b58281c'  jdk.tar.gz ` jdk.tar.gz
+  1. 下载 linux jdk8u202 的文件 ` wget https://download.oracle.com/otn/java/jdk/8u202-b08/1961070e4c9b4e26a04e7f5a083f551e/jdk-8u202-linux-x64.tar.gz?AuthParam=1661227741_d1d11510ae1be939bdb5abfd3b58281c ` 注意这个地址可能会失效，请自己去官网(`https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html  `)获取下载地址 
+  1. ` mv 'jdk-8u202-linux-x64.tar.gz?AuthParam=1661227741_d1d11510ae1be939bdb5abfd3b58281c'  jdk.tar.gz `  重命名文件。
   1. 解压文件 ` tar -zxvf jdk.tar.gz  ` 得到jdk1.8.0_202
   1. ` mv jdk1.8.0_202 /usr/local/ `
   1. ` ln -s /usr/local/jdk1.8.0_202 /usr/local/jdk `
@@ -134,7 +189,7 @@ sed -i -e 's:libopencv_java3:libopencv_java4:g' third_party/opencv_linux.BUILD
 
  export GLOG_logtostderr=1
 
-# 如果只使用cpu
+# 如果使用cpu
  bazel run --define MEDIAPIPE_DISABLE_GPU=1 \
     mediapipe/examples/desktop/hello_world:hello_world
 
@@ -161,7 +216,7 @@ file '@bazel_tools//tools/cpp:toolchain_utils.bzl' does not contain symbol 'use_
 1. 当出现 ` hello_world.cc:57] Hello World! ` 表示环境配置完成
 
 
-1. 执行一次如下代码,CPU / GPU 模式选择一个即可
+1. 必须执行一次如下代码,CPU / GPU 模式选择一个即可
 
 ```bash
  # 如果使用cpu模式
@@ -179,37 +234,11 @@ file '@bazel_tools//tools/cpp:toolchain_utils.bzl' does not contain symbol 'use_
 1. ` cd /home/knift/server ` 
 1. ` npm i ` 安装node_modules
 1. ` npm start  ` 启动服务
-1. 在浏览器中录入服务端运行的地址，本演示文档使用的是: ` http://172.22.57.214:3003 ` ,登陆界面的账号密码已写入界面，无需修改直接登入
+1. 在浏览器中录入服务端运行的地址，本演示文档使用的是: ` http://172.22.57.214:3002 ` ,登陆界面的账号密码已写入界面，无需修改直接登入
 1. 登入后点击建立model ,检查运行环境是否配置正常
 1. 建立model时如果提示权限问题，进入到 服务端的` shell `目录,执行 ` chmod +x knift_index.sh  && chmod +x knift_labelmap.sh   ` 再次运行建立model
 1. 当出现 ` xxx.sh not found` 时 找到服务端的文件 ` /home/knift/server/routes/buildmodel.js ` 将
 ` cbc.build("/home/knift/", tempImgDir, no,modelDir,ext) `中的第一个参数的路径改成 mideapipe所在的根目录，本此演示的路径为 ` /home/knift/mediapipe-yu/ ` 重启服务,注意路径后面有个`/`别掉了
-
-# 创建ionic 项目:
-1.  ` ionic start ionic_demo  `  ionic_demo=项目文件夹名称 
-1.   当出现`? Use the app creation wizard? (Y/n)  ` 时选择 `n`
-1.  `Framework` 本文档选择 ` Angular `
-1.  输入项目名称
-1.  选择template
-1.  进入到ionic项目的目录:` cd  ionic_demo`，
-1.  关闭capacitor : ` ionic integrations disable  capacitor `
-1.  添加Android 平台:` ionic cordova platform add android ` ,出现` ? Are you sure you want to continue? (Y/n)  ` 选择` Y `
-1.  打开`ionic_demo`目录下的 ` config.xml ` 修改 ` <widget id="com.hld.ionicdemo" version="0.0.1" ...> `中的id的值为:`com.hld.ionicdemo `类似的格式， 此值为Android 的包名，请尽量保证 id 的值全球唯一 ,widget中的version为Android app的版本号，如果版本升级，请增加该版本号的值
-1.  继续修改` config.xml ` `<name>MyApp</name>` 中的MyApp的值，此为App在手机上显示的名称
-1.  按需求修改`description` 和 ` author `节点的内容
-1.  然后运行 ` ionic cordova platform rm android  `删除一次` platforms/android`文件，
-1.  然后再运行 ` ionic cordova platform  add android   ` 删除后再运行，是为了使 config.xml 的修改生效
-1.  尝试编译一次android项目 ` ionic cordova build android `
-1.  如果出现 ` Error: Unknown argument: platform `  请执行命令 `ng add @ionic/cordova-builders `
-
-
-1.  如果出现类似`  No installed build tools found. Please install the Android build tools version 30.0.3. `错误 打开Android Studio 然后打开当前项目:` ionic_demo/platforms/android ` 
-![avatar](./images/android1.png)
-
-1.  在android studio中安装 build tools ` Android Studio -> tools -> SDK manager -> SDK Tools -> Show packages details and select needed versions ` 。 见图片标注
-![avatar](./images/android2.png)
- 
-1.  然后再次在` ionic_demo `的终端目录中运行` ionic cordova build android  `
 
 
 # 添加http支持
@@ -225,6 +254,7 @@ file '@bazel_tools//tools/cpp:toolchain_utils.bzl' does not contain symbol 'use_
 # 添加插件
 1.  在ionic_demo目录中新建一个 `local_plugins`目录
 1.  将插件文件拷贝到` local_plugins ` 
+1.  
 1.  在` ionic_demo `目录下面执行:`ionic cordova plugin add ./local_plugins/com.hld.cordova.plugin.mediapipe` 等待插件安装完成
 
 # 调用插件 所有命令都在 ionic_demo 中执行
